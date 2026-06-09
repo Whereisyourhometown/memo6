@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小升初纪念册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "微软雅黑", sans-serif;
+            background: #0a101f;
+            color: #f0f4ff;
+            line-height: 1.8;
+            padding-top: 2cm;
+        }
+
+        /* 顶部通栏 高度2cm 全屏宽 */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2cm;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        /* 文字颜色：红、蓝、绿、金、粉、黑 */
+        .top-text span:nth-child(1) { color: red; }
+        .top-text span:nth-child(2) { color: blue; }
+        .top-text span:nth-child(3) { color: green; }
+        .top-text span:nth-child(4) { color: gold; }
+        .top-text span:nth-child(5) { color: pink; }
+        .top-text span:nth-child(6) { color: black; }
+        .top-text {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 6px;
+        }
+
+        /* 单屏容器 全屏 上下滑动 */
+        .page-item {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+        }
+
+        /* 图片尺寸：宽5cm 高4cm */
+        .page-img {
+            width: 5cm;
+            height: 4cm;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        /* 文案区域 */
+        .text-box {
+            max-width: 700px;
+            background: rgba(0, 0, 20, 0.45);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(6px);
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* 左下角播放器 */
+        .player-wrap {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .play-btn {
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .song-list {
+            list-style: none;
+        }
+        .song-list li {
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .song-list li:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .song-list li.active {
+            color: gold;
+        }
+
+        /* 右下角旋转唱片 + 音符 */
+        .disc-wrap {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 120px;
+            height: 120px;
+            z-index: 999;
+        }
+        .disc {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #111;
+            border: 4px solid #333;
+            position: relative;
+        }
+        .disc::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            background: #555;
+            border-radius: 50%;
+        }
+        /* 唱片旋转动画 */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .disc.spinning {
+            animation: spin 8s linear infinite;
+        }
+        /* 音符飘动动画 */
+        .music-note {
+            position: absolute;
+            color: rgba(255,255,255,0.7);
+            font-size: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(-15px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部标题栏 -->
+<div class="top-bar">
+    <div class="top-text">
+        <span>小</span><span>升</span><span>初</span><span>纪</span><span>念</span><span>册</span>
+    </div>
+</div>
+
+<!-- 第1屏 -->
+<div class="page-item">
+    <img class="page-img" src="null.jpeg" alt="风景">
+    <div class="text-box">
+        六年时光悄然落幕，少年的故事暂告一段落。抬头仰望漫天星河，点点星光恰似心底藏着的热爱与理想。告别童真岁月，带着满心期许奔赴新征程，愿你永远眼里有光，在成长的路上步步生花，奔赴属于自己的璀璨远方。
+    </div>
+</div>
+
+<!-- 第2屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (1).jpeg" alt="风景">
+    <div class="text-box">
+        晚风轻拂海面，月光揉碎在水波之间。回首朝夕相伴的校园，那些欢笑与陪伴都成了珍贵回忆。小升初是一场温柔的告别，也是全新的起点。愿你怀揣纯粹与勇敢，踏着月色前行，在新的旅程里收获更多美好与惊喜。
+    </div>
+</div>
+
+<!-- 第3屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (2).jpeg" alt="风景">
+    <div class="text-box">
+        静谧夜色笼罩林间，溪水缓缓流淌，一如我们慢慢走过的小学时光。相聚终有离别，前路满是风光。收起不舍，带着师长的叮嘱、伙伴的祝福继续出发。愿你保持心底的澄澈，在往后的岁月里，自在生长，向阳而行。
+    </div>
+</div>
+
+<!-- 第4屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (3).jpeg" alt="风景">
+    <div class="text-box">
+        夜幕低垂，星空覆满旷野，远山在夜色里静静伫立。六年旅途画上句点，不必为离别感伤，这只是成长的必经之路。愿你以星辰为引，以热爱为翼，跨越前路山海，带着少年意气，奔赴下一程热气腾腾的崭新生活。
+    </div>
+</div>
+
+<!-- 第5屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (4).jpeg" alt="风景">
+    <div class="text-box">
+        暖融融的灯火点亮夜色，温柔包裹着过往的美好。难忘教室里的朗朗书声，难忘课间的嬉笑打闹。毕业不是终点，而是新的开始。愿这份温暖常伴左右，带着童年的美好记忆，勇敢奔赴中学时光，书写更多精彩篇章。
+    </div>
+</div>
+
+<!-- 第6屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (5).jpeg" alt="风景">
+    <div class="text-box">
+        两岸灯火连绵，夜色温柔绵长。走过整整六个春秋，我们从懵懂孩童长成翩翩少年。挥手告别小学岁月，把美好回忆妥善珍藏。愿你循着灯火的方向笃定前行，保持热忱与善良，在新的天地里探索未知，遇见更好的自己。
+    </div>
+</div>
+
+<!-- 第7屏 -->
+<div class="page-item">
+    <img class="page-img" src="null (6).jpeg" alt="风景">
+    <div class="text-box">
+        清辉月色洒在雪山之上，纯净又辽阔。小学时光如一场温暖的远行，如今到站挥手作别。愿你拥有雪山般坦荡的胸襟，不惧前路挑战，带着六年积累的学识与勇气，大步迈向新的阶段，不负时光，不负心中所向。
+    </div>
+</div>
+
+<!-- 左下角音乐播放器 -->
+<div class="player-wrap">
+    <button class="play-btn" id="playBtn">暂停</button>
+    <ul class="song-list" id="songList">
+        <li data-src="雨爱.mp3">1.雨爱</li>
+        <li data-src="广告歌.mp3">2.广告歌</li>
+        <li data-src="起风了.mp3">3.起风了</li>
+        <li data-src="Mr broken heart.mp3">4.Mr broken heart</li>
+        <li data-src="诀别书.mp3">5.诀别书</li>
+    </ul>
+</div>
+
+<!-- 右下角旋转唱片+音乐符号 -->
+<div class="disc-wrap">
+    <div class="disc" id="disc"></div>
+    <div class="music-note" style="top:10px;left:-20px;">♪</div>
+    <div class="music-note" style="top:-10px;left:20px;">♫</div>
+    <div class="music-note" style="top:50px;left:-30px;">♩</div>
+</div>
+
+<!-- 音频播放器 -->
+<audio id="bgMusic" src="雨爱.mp3">
+
+<script>
+const audio = document.getElementById('bgMusic');
+const playBtn = document.getElementById('playBtn');
+const songList = document.getElementById('songList');
+const disc = document.getElementById('disc');
+let currentIndex = 0;
+const songs = [
+    "雨爱.mp3",
+    "广告歌.mp3",
+    "起风了.mp3",
+    "Mr broken heart.mp3",
+    "诀别书.mp3"
+];
+
+// 页面点击后自动播放音乐
+function tryAutoPlay() {
+    audio.play().then(() => {
+        disc.classList.add('spinning');
+        playBtn.innerText = '暂停';
+    }).catch(e => {});
+}
+document.addEventListener('click', tryAutoPlay, { once: true });
+
+// 播放/暂停按钮
+playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        disc.classList.add('spinning');
+        playBtn.innerText = '暂停';
+    } else {
+        audio.pause();
+        disc.classList.remove('spinning');
+        playBtn.innerText = '播放';
+    }
+});
+
+// 歌单切换歌曲
+songList.querySelectorAll('li').forEach((li, idx) => {
+    li.addEventListener('click', () => {
+        currentIndex = idx;
+        audio.src = li.dataset.src;
+        audio.play();
+        disc.classList.add('spinning');
+        playBtn.innerText = '暂停';
+        songList.querySelectorAll('li').forEach(x => x.classList.remove('active'));
+        li.classList.add('active');
+    });
+});
+
+// 歌曲播放结束自动下一首
+audio.addEventListener('ended', () => {
+    currentIndex = (currentIndex + 1) % songs.length;
+    audio.src = songs[currentIndex];
+    audio.play();
+    songList.querySelectorAll('li').forEach((x, i) => {
+        x.classList.toggle('active', i === currentIndex);
+    });
+});
+</script>
+
+</body>
+</html>
